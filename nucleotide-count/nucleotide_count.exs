@@ -19,7 +19,13 @@ defmodule NucleotideCount do
   end
 
   def count(strand, nucleotide) when nucleotide in @nucleotides do
-    Enum.reduce(strand, 0, fn(elem, acc) -> if elem == nucleotide do acc + 1 else acc end end)
+    Enum.reduce(strand, 0, fn(letter, acc) -> 
+      if letter == nucleotide do 
+        acc + 1 
+      else 
+        acc 
+      end 
+    end)
   end
 
 
