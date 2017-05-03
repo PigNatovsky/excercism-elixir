@@ -20,24 +20,27 @@ defmodule SecretHandshake do
 
   use Bitwise
 
-  defp _commands(code, out) when code <= 0 do
-    out
-  end
-
-  defp _commands(code, out) when (code &&& 0b1) == 0b1 do
-    _commands(code - 0b1, ["wink" | out])
-  end
-
-  defp _commands(code, out) when (code &&& 0b10) == 0b10 do
-    _commands(code - 0b10, ["double blink" | out])
+  defp _commands(code, out) when (code &&& 0b1000) == 0b1000 do
+    _commands(code - 0b1000, ["jump" | out])
   end
 
   defp _commands(code, out) when (code &&& 0b100) == 0b100 do
     _commands(code - 0b100, ["close your eyes" | out])
   end
 
-  defp _commands(code, out) when (code &&& 0b1000) == 0b1000 do
-    _commands(code - 0b1000, ["jump" | out])
+  defp _commands(code, out) when (code &&& 0b10) == 0b10 do
+    _commands(code - 0b10, ["double blink" | out])
   end
 
+  defp _commands(code, out) when (code &&& 0b1) == 0b1 do
+    _commands(code - 0b1, ["wink" | out])
+  end
+
+  defp _commands(code, out) when (code &&& 0b10000) == 0b10000 do
+    _commands(code - 0b10000, Enum.reverse(out))
+  end
+  
+  defp _commands(code, out) when code <= 0 do
+    out
+  end
 end
