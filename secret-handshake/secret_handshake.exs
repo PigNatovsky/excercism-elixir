@@ -32,4 +32,12 @@ defmodule SecretHandshake do
     _commands(code - 0b10, ["double blink" | out])
   end
 
+  defp _commands(code, out) when (code &&& 0b100) == 0b100 do
+    _commands(code - 0b100, ["close your eyes" | out])
+  end
+
+  defp _commands(code, out) when (code &&& 0b1000) == 0b1000 do
+    _commands(code - 0b1000, ["jump" | out])
+  end
+
 end
