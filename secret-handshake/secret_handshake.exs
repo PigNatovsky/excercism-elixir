@@ -39,8 +39,12 @@ defmodule SecretHandshake do
   defp _commands(code, out) when (code &&& 0b10000) == 0b10000 do
     _commands(code - 0b10000, Enum.reverse(out))
   end
-  
+
   defp _commands(code, out) when code <= 0 do
     out
+  end
+
+  defp _commands(code, out) do
+    _commands(code - 0b100000, out)
   end
 end
